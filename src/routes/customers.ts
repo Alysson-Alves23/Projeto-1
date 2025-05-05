@@ -1,19 +1,12 @@
+// src/routes/customer.routes.ts
 import { Router } from 'express';
+import { CustomerController } from '../controllers/CustomerController';
 
 const router = Router();
+const customerController = new CustomerController();
 
-
-router.get('/', (req, res) => {
-    res.json({message: 'Customer list'});
-});
-
-
-router.get('/:id/', (req, res) => {
-    res.json({message: 'Customer details '});
-});
-
-router.get('/:id/orders', (req, res) => {
-    res.json({message: 'Customer orders list'});
-});
+router.get('/', customerController.listCustomers);
+router.get('/:id', customerController.getCustomerDetails);
+router.get('/:id/orders', customerController.getCustomerOrders);
 
 export default router;
