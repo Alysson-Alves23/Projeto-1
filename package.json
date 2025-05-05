@@ -6,12 +6,15 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/app.js",
-    "dev":"ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/app.ts"
+    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/app.ts"
   },
   "dependencies": {
     "@types/cors": "^2.8.17",
     "cors": "^2.8.5",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "mysql": "^2.18.1",
+    "reflect-metadata": "^0.2.2",
+    "typeorm": "^0.3.22"
   },
   "devDependencies": {
     "@types/express": "^5.0.1",
