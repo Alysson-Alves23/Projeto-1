@@ -56,8 +56,8 @@ Exemplo da mensagem que deve ser consumida:
     - Plano de Trabalho
     - Caso haja algum desvio entre o planejamento original e a execução, explique o que houve.
     - Tecnologias utilizadas
-    - Linguagens, Versões, IDE's, SO's
-    - Diagrama de arquitetura
+    - Linguagens, Versõesarquitetura, IDE's, SO's
+    - Diagrama de 
     - Modelagem da base de dados
     - Diagrama de implantação da solução
     - Diagrama de infra com os recursos de cloud utilizados (máquina, SO, produtos específicos, etc.)

@@ -1,91 +1,75 @@
-# Plano de Trabalho para Desafio Hertz
+# Plano de Trabalho – Desafio Hertz
+
+> Versão 1.1 – _última atualização: **08/05/2025**_
 
 ---
 
-## 1. Definição de Escopo e Inicialização
+## 1. Visão Geral
+O objetivo deste desafio é criar uma solução capaz de:
+1. Consumir mensagens de pedidos a partir de uma fila RabbitMQ.
+2. Persistir os pedidos em um banco MySQL.
+3. Disponibilizar uma API REST para consulta de:
+   - Valor total do pedido.  
+   - Quantidade de pedidos por cliente.  
+   - Lista de pedidos realizados por cliente.  
 
-* Detalhar funcionalidades e requisitos.
-* Escolher tecnologias: **TypeScript**, Node.js (Express ou NestJS), MySQL, RabbitMQ.
-* Criar repositório GitHub público e estrutura inicial de pastas.
-* Elaborar `docker-compose.yml` básico com serviços de MySQL, RabbitMQ e aplicação.
-
----
-## 2. Modelagem de Dados
-
-* Desenhar diagrama entidade-relacionamento (ER) para o banco de pedidos.
-* Definir esquema SQL para MySQL.
-* Implementar migrations com TypeORM, Sequelize ou Knex (ou similar).
+A entrega deve ser **dockerizada**, devidamente **testada** e acompanhada de **relatório técnico**.
 
 ---
 
-## 3. Implementação do Consumidor RabbitMQ
-
-* Configurar conexão com fila RabbitMQ usando `amqplib` ou `nestjs/rabbitmq`.
-* Implementar serviço em TypeScript que consome mensagens de pedidos.
-* Calcular valor total do pedido e persistir no MySQL.
-
-
----
-
-## 4. Desenvolvimento da API REST
-
-* Criar aplicação em Express ou NestJS com TypeScript.
-* Endpoints:
-
-    * `GET /orders/:id/total` – valor total do pedido
-    * `GET /customers/:id/orders/count` – quantidade de pedidos por cliente
-    * `GET /customers/:id/orders` – lista de pedidos de um cliente
-* Escrever testes unitários e de integração (Jest ou Mocha + Chai).
+## 2. Escopo Funcional
+| Requisito | Entregável | Status |
+|-----------|-----------|---|
+| Consumidor RabbitMQ | Serviço Node/TS em `src/queue` | ✅ |
+| Persistência MySQL | Tabelas `orders` e `order_item` via TypeORM migrations | ✅ |
+| API REST | Rotas `/orders/:id/total`, `/orders/customer/:customerId`, `/orders/stats/count` | ✅ |
+| Dockerização | `Dockerfile` + `docker-compose.yml` (app + db + rabbit) | ✅ |
+| Testes | Unitários e integração (Jest) | ☐ _em andamento_ |
+| Documentação | README + Plano de Trabalho + Diagramas | ✅|
 
 ---
 
-## 5. Dockerização Completa
+## 3. Macro-Cronograma (7 dias)
 
-* Criar `Dockerfile` e atualizar `docker-compose.yml` para todos os serviços.
-* Testar build e startup via Docker Compose.
-* Publicar imagem(s) no DockerHub.
+| Dia | Atividade | Artefatos                            |
+|-----|-----------|--------------------------------------|
+| 1 | Levantamento do escopo, criação do repositório | README inicial, Plano de Trabalho v1 |
+| 2 | Modelagem ER + migrations | `src/migrations`                     |
+| 3 | Implementação do consumidor RabbitMQ | `src/services/OrderService.ts`       |
+| 4 | Implementação da API REST | `src/controllers`, `src/routes`      |
+| 5 | Dockerização completa | `Dockerfile`, `docker-compose.yml`   |
+| 6 | Testes unitários/integração | `tests/`                             |
+| 7 | Ajustes finais, documentação e evidências | Relatório técnico, imagens Docker    |
 
 ---
 
-## 6. Testes de Integração e Carga
+## 4. Arquitetura de Solução
 
-* Configurar Jest.
-* Testes Unitários.
-* Testes de integração.
+![Diagrama de Arquitetura](./arquitetura.png)
+
+- [Versão em PDF](./arquitetura.pdf)
+
+---
+
+## 5. Tecnologias Utilizadas
+
+| Tecnologia | Versão | Finalidade |
+|------------|--------|------------|
+| TypeScript | 5.5.3 | Linguagem de programação com tipagem estática |
+| Node.js | 18.x | Plataforma de execução JavaScript |
+| Express | 5.1.0 | Framework web para construção da API REST |
+| TypeORM | 0.3.22 | ORM para manipulação do banco de dados |
+| MySQL | 8.0 | Sistema de banco de dados relacional |
+| RabbitMQ | 3.12 | Message broker para filas de mensagens |
+| amqplib | 0.10.3 | Cliente para conexão com RabbitMQ |
+| Docker | 24.x | Plataforma para containerização da aplicação |
+
 ---
 
 
-## Estrutura de Pastas
 
-```plaintext
-hertz-order-processor/
-├── src/
-│   ├── config/
-│   ├── controllers/
-│   ├── models/
-│   ├── services/
-│   ├── repositories/
-│   ├── queue/
-│   ├── routes/
-│   ├── types/
-│   ├── utils/
-│   ├── app.ts
-│   └── server.ts
-├── tests/
-```
+## 7. Contato e Perfis
 
-## Tecnologias Principais
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/seu-perfil-linkedin/)
 
-* **Linguagem:** TypeScript
-* **Runtime:** Node.js 18+
-* **Framework:** Express
-* **Mensageria:** RabbitMQ
-* **Banco de Dados:** MySQL
-* **ORM/Migrations:** TypeORM
-* **Contêineres:** Docker
-* **Testes:** Jest
-
-
-    "docker-migration:run": "docker exec app npx typeorm migration:run -d dist/config/database.js ",
-    "docker-seed:run": "docker exec app npm run typeorm seed:run -d dist/config/database.js",
-    "docker-start": "docker-compose up -d"
+[![GitHub](https://img.shields.io/badge/-GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/seu-usuario-github)
