@@ -45,7 +45,7 @@ A entrega deve ser **dockerizada**, devidamente **testada** e acompanhada de **r
 
 ## 4. Arquitetura de Solução
 
-![Diagrama de Arquitetura](./arquitetura.png)
+![Diagrama de Arquitetura](arquitetura.png)
 
 - [Versão em PDF](./arquitetura.pdf)
 
