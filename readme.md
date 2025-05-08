@@ -81,11 +81,76 @@ Ao entender que se tratava de um microsserviço orientado a processamento de men
 ### 3. Impacto na escolha da stack
 Se eu tivesse me atentado ao escopo de microsserviço desde o início, teria optado por uma solução baseada em banco de dados NoSQL (por exemplo, MongoDB), devido à sua flexibilidade para armazenar os dados recebidos da fila e consultar rapidamente os agregados de pedidos, sem a necessidade de esquemas rígidos de tabelas relacionais.
 
+## Executando o projeto
+
+## ⚙️ 1. Criar o arquivo `.env` a partir do `.env.example`
+
+1. Copie o arquivo de exemplo:
+   ```bash
+   cp .env.example .env
+````
+
+2. Abra o `.env` e configure as variáveis de ambiente conforme abaixo (ou de acordo com suas credenciais):
+
+   ```env
+   MYSQL_HOST=localhost
+   MYSQL_PORT=3306
+   MYSQL_DATABASE=nome_do_banco
+   MYSQL_USER=seu_usuario
+   MYSQL_PASSWORD=sua_senha
+   RABBITMQ_URI=amqp://guest:guest@localhost:5672
+   RABBITMQ_QUEUE=minha_fila
+   RABBITMQ_EXCHANGE=meu_exchange
+   RABBITMQ_ROUTING_KEY=minha_routing_key
+   ```
+
+---
+
+### 🐳 2. Subir os serviços com Docker Compose
+
+1. Inicie todos os containers em background:
+
+   ```bash
+   docker-compose up -d
+   ```
+2. Verifique se estão saudáveis (especialmente MySQL e RabbitMQ):
+
+   ```bash
+   docker-compose ps
+   ```
+
+> O Compose aguarda as condições de healthcheck definidas em `docker-compose.yml` antes de iniciar o serviço `app` ([Docker Documentation][2]).
+
+---
+
+### 🛠️ 3. Executar as migrations dentro do container `app`
+
+1. rode as migrations do TypeORM:
+
+   ```bash
+   docker-compose exec app npm run migration:run
+   ```
+
+> O comando `migration:run` aplica todas as migrations pendentes, mantendo seu esquema de banco atualizado ([README | typeorm][3]).
+
+---
+### 🐇 Painel RabbitMQ
+URL padrão:
+Acesse em ```http://localhost:15672/```  
+
+
+### ⚙️ API Routes
+base url = `localhost:3333/api/`
+- `GET /orders/`
+- `GET /orders/:id`
+- `GET /orders/:id/total`  
+- `GET /orders/customer/:customerId`  
+- `GET /orders/stats/count`
+
+## 8. Perfis
+[![GitHub](https://img.shields.io/badge/-GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Alysson-Alves23/)
 
 ## Repositórios
 
 [Desafio 1](https://github.com/Alysson-Alves23/Projeto-1)
 [Desafio 2](https://github.com/Alysson-Alves23/Projeto-2)
-
-## 8. Perfis
-[![GitHub](https://img.shields.io/badge/-GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Alysson-Alves23/)
