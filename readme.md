@@ -93,15 +93,21 @@ Se eu tivesse me atentado ao escopo de microsserviço desde o início, teria opt
 2. Abra o `.env` e configure as variáveis de ambiente conforme abaixo (ou de acordo com suas credenciais):
 
    ```env
-   MYSQL_HOST=localhost
+   PORT=3000
+   NODE_ENV=development
+   
+   MYSQL_HOST=mysql
    MYSQL_PORT=3306
-   MYSQL_DATABASE=nome_do_banco
-   MYSQL_USER=seu_usuario
-   MYSQL_PASSWORD=sua_senha
-   RABBITMQ_URI=amqp://guest:guest@localhost:5672
-   RABBITMQ_QUEUE=minha_fila
-   RABBITMQ_EXCHANGE=meu_exchange
-   RABBITMQ_ROUTING_KEY=minha_routing_key
+   MYSQL_DATABASE=orders
+   MYSQL_USER=user
+   MYSQL_PASSWORD=password
+   
+   RABBITMQ_URI=amqp://guest:guest@rabbitmq:5672
+   RABBITMQ_USERNAME=guest
+   RABBITMQ_PASSWORD=guest
+   RABBITMQ_QUEUE=orders
+   RABBITMQ_EXCHANGE=orders_exchange
+   RABBITMQ_ROUTING_KEY=orders.new
    ```
 
 ---
