@@ -84,7 +84,7 @@ Se eu tivesse me atentado ao escopo de microsserviço desde o início, teria opt
 
 ## Repositórios
 
-[Desafio 1](https://github.com/Alysson-Alves23/Projeto-1))
+[Desafio 1](https://github.com/Alysson-Alves23/Projeto-1)
 [Desafio 2](https://github.com/Alysson-Alves23/Projeto-2)
 
 ## 8. Perfis
