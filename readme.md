@@ -88,7 +88,7 @@ Se eu tivesse me atentado ao escopo de microsserviço desde o início, teria opt
 1. Copie o arquivo de exemplo:
    ```bash
    cp .env.example .env
-````
+   ```
 
 2. Abra o `.env` e configure as variáveis de ambiente conforme abaixo (ou de acordo com suas credenciais):
 
