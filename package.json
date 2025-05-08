@@ -1,23 +1,31 @@
 {
-  "name": "${PROJECT_NAME}",
+  "name": "Projeto-1",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
     "start": "node dist/app.js",
-    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/app.ts"
+    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/app.ts",
+    "typeorm": "typeorm-ts-node-commonjs",
+    "migration:run": "npm run typeorm -- migration:run -d src/config/database.ts",
+    "seed": "node dist/database/seeders/cli.js",
+    "setup": "npm run migration:run && npm run seed"
   },
   "dependencies": {
     "@types/cors": "^2.8.17",
+    "amqplib": "^0.10.3",
     "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
     "express": "^5.1.0",
-    "mysql": "^2.18.1",
+    "mysql2": "^3.14.1",
     "reflect-metadata": "^0.2.2",
     "typeorm": "^0.3.22"
   },
   "devDependencies": {
+    "@types/amqplib": "^0.10.4",
     "@types/express": "^5.0.1",
+    "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.5.3"
   },

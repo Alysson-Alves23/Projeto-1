@@ -1,35 +1,56 @@
-version: '3.8'
-
 services:
   app:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: order-processor-app
-    restart: unless-stopped
     ports:
-      - "3000:3000"
-    env_file:
-      - .env
+      - "3333:3333"
+    environment:
+      - MYSQL_HOST=${MYSQL_HOST}
+      - MYSQL_PORT=${MYSQL_PORT}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - RABBITMQ_URI=${RABBITMQ_URI}
+      - RABBITMQ_QUEUE=${RABBITMQ_QUEUE}
+      - RABBITMQ_EXCHANGE=${RABBITMQ_EXCHANGE}
+      - RABBITMQ_ROUTING_KEY=${RABBITMQ_ROUTING_KEY}
+    volumes:
+      - .:/app
     depends_on:
-      - mysql
-      - rabbitmq
+      mysql:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
     networks:
       - app-network
-
+    command: >
+      sh -c "
+        echo 'Verificando estrutura de arquivos...' &&
+        echo 'Aguardando MySQL e RabbitMQ...' &&
+        sleep 10 &&
+        npm run build &&
+        npm run start"
+      
   mysql:
     image: mysql:8.0
     container_name: order-processor-mysql
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: orders
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-password}
-      MYSQL_USER: ${MYSQL_USER:-user}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-password}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-password}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      timeout: 5s
+      retries: 10
+      interval: 5s
     networks:
       - app-network
 
@@ -37,14 +58,19 @@ services:
     image: rabbitmq:3-management
     container_name: order-processor-rabbitmq
     restart: unless-stopped
-    environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USERNAME:-guest}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-guest}
     ports:
-      - "5672:5672"   # AMQP protocol port
-      - "15672:15672" # Management UI port
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USERNAME:-guest}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD:-guest}
     volumes:
       - rabbitmq_data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
     networks:
       - app-network
 
