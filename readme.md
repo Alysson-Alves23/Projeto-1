@@ -65,11 +65,27 @@ A entrega deve ser **dockerizada**, devidamente **testada** e acompanhada de **r
 | Docker | 24.x | Plataforma para containerização da aplicação |
 
 ---
+## 6. Desvios 
+### 1. Abordagem inicial
+Ao começar o desafio, baseei-me na minha “memória muscular” e, ao ler rapidamente o enunciado, foquei na parte que pedia “crie uma API REST” e no objeto _Order_. Naturalmente, projetei o sistema como um CRUD tradicional, definindo relacionamentos entre _Customer_, _Order_ e _OrderItem_, e implementei toda a estrutura inicial do projeto (entidades, repositórios, controllers e rotas).
+
+### 2. Redefinição de escopo
+Alguns dias depois, ao revisar o enunciado com mais atenção, percebi que o requisito principal era, na verdade,:
+- Criar um microsserviço que consumisse dados de uma fila RabbitMQ e gravasse informações para permitir:  
+  - Cálculo do valor total do pedido  
+  - Quantidade de pedidos por cliente  
+  - Listagem de pedidos por cliente  
+
+Ao entender que se tratava de um microsserviço orientado a processamento de mensagens, ficou claro que não havia necessidade de expor endpoints REST para inserção ou consulta de clientes, tampouco de manter tabelas específicas para essas operações. O serviço deveria simplesmente receber mensagens, persistir os dados de pedidos e gerar as métricas solicitadas.
+
+### 3. Impacto na escolha da stack
+Se eu tivesse me atentado ao escopo de microsserviço desde o início, teria optado por uma solução baseada em banco de dados NoSQL (por exemplo, MongoDB), devido à sua flexibilidade para armazenar os dados recebidos da fila e consultar rapidamente os agregados de pedidos, sem a necessidade de esquemas rígidos de tabelas relacionais.
 
 
+## Repositórios
 
-## 7. Contato e Perfis
+[Desafio 1](https://github.com/Alysson-Alves23/Projeto-1))
+[Desafio 2](https://github.com/Alysson-Alves23/Projeto-2)
 
-[![LinkedIn](https://img.shields.io/badge/-LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/seu-perfil-linkedin/)
-
-[![GitHub](https://img.shields.io/badge/-GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/seu-usuario-github)
+## 8. Perfis
+[![GitHub](https://img.shields.io/badge/-GitHub-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Alysson-Alves23/)
