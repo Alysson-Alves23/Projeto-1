@@ -19,5 +19,6 @@ export const AppDataSource = new DataSource({
     entities: [ Order, OrderItem],
     migrations: ["dist/database/migrations/*.js"],
     synchronize: false,
+    logging: true,
 });
 

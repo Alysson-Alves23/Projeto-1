@@ -18,7 +18,7 @@ export class OrderItem {
     @Column("decimal", { precision: 10, scale: 2 })
     precoTotal: number;
 
-    @Column()
+    @Column({ name: "codigoPedido" })
     codigoPedido: number;
 
     @ManyToOne(() => Order, order => order.itens)

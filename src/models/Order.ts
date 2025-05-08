@@ -1,6 +1,5 @@
-import { Entity, PrimaryColumn, Column, OneToMany} from "typeorm";
+import { Entity, PrimaryColumn, Column, OneToMany } from "typeorm";
 import { OrderItem } from "./OrderItem";
-
 
 @Entity('orders')
 export class Order {
@@ -15,5 +14,4 @@ export class Order {
 
     @OneToMany(() => OrderItem, item => item.order, { cascade: true })
     itens: OrderItem[];
-
 }

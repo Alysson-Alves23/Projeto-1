@@ -10,7 +10,8 @@
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:run": "npm run typeorm -- migration:run -d src/config/database.ts",
     "seed": "node dist/database/seeders/cli.js",
-    "setup": "npm run migration:run && npm run seed"
+    "setup": "npm run migration:run && npm run seed",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@types/cors": "^2.8.17",

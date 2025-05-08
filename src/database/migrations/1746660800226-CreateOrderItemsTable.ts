@@ -44,7 +44,7 @@ export class CreateOrderItemsTable1746660800224 implements MigrationInterface {
                     {
                         name: "codigoPedido",
                         type: "int",
-                        isNullable: true
+                        isNullable: false
                     }
                 ]
             })
