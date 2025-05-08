@@ -42,7 +42,7 @@ export class CreateOrderItemsTable1746660800224 implements MigrationInterface {
                         scale: 2
                     },
                     {
-                        name: "orderId",
+                        name: "codigoPedido",
                         type: "int",
                         isNullable: true
                     }
@@ -56,9 +56,9 @@ export class CreateOrderItemsTable1746660800224 implements MigrationInterface {
             await queryRunner.createForeignKey(
                 "order_item",
                 new TableForeignKey({
-                    columnNames: ["orderId"],
-                    referencedColumnNames: ["id"],
-                    referencedTableName: "orders", // Alterado para orders (no plural)
+                    columnNames: ["codigoPedido"],
+                    referencedColumnNames: ["codigoPedido"],
+                    referencedTableName: "orders",
                     onDelete: "CASCADE"
                 })
             );
@@ -70,7 +70,7 @@ export class CreateOrderItemsTable1746660800224 implements MigrationInterface {
     public async down(queryRunner: QueryRunner): Promise<void> {
         const table = await queryRunner.getTable("order_item");
         const foreignKey = table?.foreignKeys.find(
-            fk => fk.columnNames.indexOf("orderId") !== -1
+            fk => fk.columnNames.indexOf("codigoPedido") !== -1
         );
         if (foreignKey) {
             await queryRunner.dropForeignKey("order_item", foreignKey);

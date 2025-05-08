@@ -1,11 +1,9 @@
 import { Request, Response } from 'express';
 import { AppDataSource } from '../config/database';
 import { Order } from '../models/Order';
-import { Customer } from '../models/Customer';
 
 export class OrderController {
     private orderRepository = AppDataSource.getRepository(Order);
-    private customerRepository = AppDataSource.getRepository(Customer);
 
     public listOrders = async (req: Request, res: Response): Promise<void> => {
         try {
@@ -25,7 +23,7 @@ export class OrderController {
         try {
             const { id } = req.params;
             const order = await this.orderRepository.findOne({
-                where: { id: Number(id) },
+                where: { codigoPedido: Number(id) },
                 relations: ['itens', 'customer']
             });
 
@@ -47,8 +45,8 @@ export class OrderController {
         try {
             const { customerId } = req.params;
             const orders = await this.orderRepository.find({
-                where: { customer: { id: Number(customerId) } },
-                relations: ['itens']
+                where: { codigoCliente: Number(customerId) },
+                relations: ['itens', 'customer']
             });
 
             res.json(orders);
@@ -82,7 +80,7 @@ export class OrderController {
         try {
             const { id } = req.params;
             const order = await this.orderRepository.findOne({
-                where: { id: Number(id) }
+                where: { codigoPedido: Number(id) }
             });
 
             if (!order) {

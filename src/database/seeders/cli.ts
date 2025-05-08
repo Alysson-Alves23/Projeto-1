@@ -15,18 +15,16 @@ async function checkTablesExist() {
     try {
         const queryRunner = AppDataSource.createQueryRunner();
 
-        const customerTableExists = await queryRunner.hasTable('customer');
         const ordersTableExists = await queryRunner.hasTable('orders');
         const orderItemTableExists = await queryRunner.hasTable('order_item');
         await queryRunner.release();
 
-        if (customerTableExists && ordersTableExists && orderItemTableExists) {
+        if (ordersTableExists && orderItemTableExists) {
             console.log("Todas as tabelas necessárias já existem no banco de dados.");
             return true;
         }
 
         console.log("ATENÇÃO: Algumas tabelas necessárias não existem:");
-        if (!customerTableExists) console.log("- Tabela 'customer' não existe");
         if (!ordersTableExists) console.log("- Tabela 'orders' não existe");
         if (!orderItemTableExists) console.log("- Tabela 'order_item' não existe");
         

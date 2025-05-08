@@ -1,6 +1,5 @@
 import { DataSource } from "typeorm";
 import { Order } from "../models/Order";
-import { Customer } from "../models/Customer";
 import { OrderItem } from "../models/OrderItem";
 
 console.log('=== Configurações de Conexão ===');
@@ -17,7 +16,7 @@ export const AppDataSource = new DataSource({
     username: process.env.MYSQL_USER || "root",
     password: process.env.MYSQL_PASSWORD || "password",
     database: process.env.MYSQL_DATABASE || "orders",
-    entities: [Customer, Order, OrderItem],
+    entities: [ Order, OrderItem],
     migrations: ["dist/database/migrations/*.js"],
     synchronize: false,
 });

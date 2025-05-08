@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from "typeorm";
 import { Order } from "./Order";
 
-@Entity('order_item')  // Especifica o nome explícito da tabela
+@Entity('order_item')
 export class OrderItem {
     @PrimaryGeneratedColumn()
     id: number;
@@ -18,6 +18,10 @@ export class OrderItem {
     @Column("decimal", { precision: 10, scale: 2 })
     precoTotal: number;
 
+    @Column()
+    codigoPedido: number;
+
     @ManyToOne(() => Order, order => order.itens)
+    @JoinColumn({ name: "codigoPedido", referencedColumnName: "codigoPedido" })
     order: Order;
 }
